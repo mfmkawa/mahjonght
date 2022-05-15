@@ -1,17 +1,92 @@
 <h2></h2>
-<img id="man" src=".\image\manzu2_1\p_ms1_1.gif" />
-<img id="lady" src=".\image\manzu2_1\p_ms2_1.gif" />
+<head>
+  <meta charset="utf-8" />
+  <title>Gamedev Canvas Workshop</title>
+  <style>
+    * { padding: 0; margin: 0; }
+    canvas { background: rgb(36, 143, 0); display: block; margin: 0 auto; }
+  </style>
+</head>
 <body>
+  <canvas id="myCanvas" width="750" height="100"></canvas>
     <script>
-        /*①クリック時に実行する関数*/
-        function clickListener (e) {
-          /*クリックした要素のIDを表示*/
-          alert( e.target.getAttribute("id") + "をクリックしました" )
+      const cards=[
+      ['".\\image\\manzu2_1\\p_ms1_1.gif"',
+        '".\\image\\manzu2_1\\p_ms2_1.gif"',
+        '".\\image\\manzu2_1\\p_ms3_1.gif"',
+        '".\\image\\manzu2_1\\p_ms4_1.gif"',
+        '".\\image\\manzu2_1\\p_ms5_1.gif"',
+        '".\\image\\manzu2_1\\p_ms6_1.gif"',
+        '".\\image\\manzu2_1\\p_ms7_1.gif"',
+        '".\\image\\manzu2_1\\p_ms8_1.gif"',
+        '".\\image\\manzu2_1\\p_ms9_1.gif"'],
+      ['".\\image\\pinzu2_1\\p_ps1_1.gif"',
+        '".\\image\\pinzu2_1\\p_ps2_1.gif"',
+        '".\\image\\pinzu2_1\\p_ps3_1.gif"',
+        '".\\image\\pinzu2_1\\p_ps4_1.gif"',
+        '".\\image\\pinzu2_1\\p_ps5_1.gif"',
+        '".\\image\\pinzu2_1\\p_ps6_1.gif"',
+        '".\\image\\pinzu2_1\\p_ps7_1.gif"',
+        '".\\image\\pinzu2_1\\p_ps8_1.gif"',
+        '".\\image\\pinzu2_1\\p_ps9_1.gif"'],
+      ['".\\image\\sozu2_1\\p_ss1_1.gif"',
+        '".\\image\\sozu2_1\\p_ss2_1.gif"',
+        '".\\image\\sozu2_1\\p_ss3_1.gif"',
+        '".\\image\\sozu2_1\\p_ss4_1.gif"',
+        '".\\image\\sozu2_1\\p_ss5_1.gif"',
+        '".\\image\\sozu2_1\\p_ss6_1.gif"',
+        '".\\image\\sozu2_1\\p_ss7_1.gif"',
+        '".\\image\\sozu2_1\\p_ss8_1.gif"',
+        '".\\image\\sozu2_1\\p_ss9_1.gif"'],
+      ['".\\image\\tupai2_1\\p_ji_c_1.gif"',
+        '".\\image\\tupai2_1\\p_ji_e_1.gif"',
+        '".\\image\\tupai2_1\\p_ji_h_1.gif"',
+        '".\\image\\tupai2_1\\p_ji_n_1.gif"',
+        '".\\image\\tupai2_1\\p_ji_s_1.gif"',
+        '".\\image\\tupai2_1\\p_ji_w_1.gif"',
+        '".\\image\\tupai2_1\\p_no_1.gif"']
+      ];
+      const han=[];
+      var loc_x=25;
+      var canvas = document.getElementById("myCanvas");
+      var ctx = canvas.getContext("2d");
+      var num=0;
+      for(let card of cards){
+        for(let gif of card){
+          document.write('<img id='+gif+' src='+gif+'/>')
         }
-        /*②IMG要素を全てセレクト*/
-        document.querySelectorAll("img").forEach((imgElm) => {
-          /*③要素のクリックイベントにイベントリスナーを紐づける*/
-          imgElm.addEventListener('click', clickListener);
-        })
+        document.write("\n");
+      }
+      document.write('<img id=enter src=".\\image\\enter.png"/>')
+      /*①クリック時に実行する関数*/
+      function clickListener (e) {
+        /*クリックした要素のIDを表示*/
+        if (e.target.getAttribute("id")=="enter"){
+          if (loc_x==725){
+            document.write("貴女の手牌は")
+            for(let gif of han){
+              document.write('<img id="'+gif+'" src="'+gif+'"/>')
+            }
+          }else{
+            alert("手牌が足りません")
+          }
+        }else{
+          if (loc_x != 725){
+            const card = new Image();
+            card.src = e.target.getAttribute("id");  // 画像のURLを指定
+            han[num]=e.target.getAttribute("id");
+            num+=1;
+            card.onload = () => {
+              ctx.drawImage(card, loc_x, 15);
+              loc_x+=50;
+            };
+          }
+        }
+      }
+      /*②IMG要素を全てセレクト*/
+      document.querySelectorAll("img").forEach((imgElm) => {
+        /*③要素のクリックイベントにイベントリスナーを紐づける*/
+        imgElm.addEventListener('click', clickListener);
+      })
     </script>
 </body>
