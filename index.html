@@ -55,21 +55,24 @@
         for(let gif of card){
           document.write('<img id='+gif+' src='+gif+'/>')
         }
-        document.write("\n");
+        document.writeln("<br>")
       }
       document.write('<img id=enter src=".\\image\\enter.png"/>')
+      document.write('<img id=remove src=".\\image\\remove.png"/>')
       /*①クリック時に実行する関数*/
       function clickListener (e) {
         /*クリックした要素のIDを表示*/
         if (e.target.getAttribute("id")=="enter"){
           if (loc_x==725){
-            document.write("貴女の手牌は")
+            document.writeln("貴女の手牌は<br>")
             for(let gif of han){
               document.write('<img id="'+gif+'" src="'+gif+'"/>')
             }
           }else{
             alert("手牌が足りません")
           }
+        }else if(e.target.getAttribute("id")=="remove"){
+          window.location.reload();
         }else{
           if (loc_x != 725){
             const card = new Image();
